@@ -3,7 +3,7 @@ fn = 64;
 module leg() {
   width = 15;
   length = 25.4;
-  height= 0.5;
+  height= 2;
   radius = width / 2;
   m4_radius = 4 / 2;
   m6_radius = 6 / 2;
