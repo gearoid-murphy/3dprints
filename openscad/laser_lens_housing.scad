@@ -8,7 +8,9 @@ lens_height = 10;
 rim_width = 1;
 outer_radius = lens_radius + thickness;
 inner_radius = lens_radius + shim;
-arm_size = outer_radius*2;
+arm_x = outer_radius*2;
+arm_y = 5;
+ext_len = outer_radius*4;
 m6_attach_diam = 50;
 m6_attach_radius = m6_attach_diam/2;
 arm_height = m6_attach_diam + 10;
@@ -30,37 +32,44 @@ module lens_holder() {
   }
 }
 
-module stage_fastener() {
-  translate([-outer_radius, 0, -arm_height/2 + lens_height/2]) {
-    difference() {     
-      cube(size = [arm_size, arm_size * .75, arm_height]);
-      translate([outer_radius, 0, 0])
-      cylinder(arm_height, outer_radius, outer_radius, $fn=fn);
-      translate([0, 0, arm_height / 2  + lens_height/2])
-      cube(size = [arm_size, arm_size/2, arm_height]);
-      translate([0, 0, -(arm_height / 2  + lens_height/2)])
-      cube(size = [arm_size, arm_size/2, arm_height]);
+module lens_holder_extension() {
+  union() {
+    lens_holder();
+    difference() {
+      translate([-outer_radius, 0, 0])
+      cube(size = [outer_radius*2, ext_len, lens_height]);
+      cylinder(lens_height,
+               outer_radius,
+               outer_radius, $fn=fn);
     }
+  }
+}
+
+module stage_fastener() {
+  sub_cyl_len = arm_y*2;
+  difference() {
+    cube(size = [arm_x, arm_y, arm_height]);
+    translate([arm_x/2, sub_cyl_len/2 + arm_y/2, arm_height/2 + m6_attach_diam/2])
+    rotate(a = 90, v = [1, 0, 0])
+    cylinder(sub_cyl_len,
+             m6_radius + shim,
+             m6_radius + shim, $fn=fn);
+    translate([arm_x/2, sub_cyl_len/2 + arm_y/2, arm_height/2 - m6_attach_diam/2])
+    rotate(a = 90, v = [1, 0, 0])
+    cylinder(sub_cyl_len,
+             m6_radius + shim,
+             m6_radius + shim, $fn=fn);
   }
 }
 
 
 module render() {
-  difference() {
-    union() {
-      lens_holder();
-      stage_fastener();
-    }
-    translate([0, lens_height*2, m6_attach_radius + lens_height/2])
-    rotate(a = 90, v = [1, 0, 0])
-    cylinder(lens_height*2,
-             m6_radius + shim,
-             m6_radius + shim, $fn=fn);
-    translate([0, lens_height*2, -m6_attach_radius + lens_height/2])
-    rotate(a = 90, v = [1, 0, 0])
-    cylinder(lens_height*2,
-             m6_radius + shim,
-             m6_radius + shim, $fn=fn);
+  echo(arm_height=arm_height);
+  union() {
+    translate([0, -ext_len, 0]) 
+    lens_holder_extension();
+    translate([-outer_radius, 0, -arm_height/2 + lens_height/2]) 
+    stage_fastener();
   }
 }
 
