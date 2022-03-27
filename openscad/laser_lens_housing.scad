@@ -2,7 +2,7 @@ fn = 128;
 
 margin = 10;
 thickness = 1.2;
-shim = 0.2;
+shim = 0.1;
 lens_radius = 11.0 / 2.0;
 lens_height = 10;
 rim_width = 1;
