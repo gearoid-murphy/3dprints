@@ -66,9 +66,9 @@ module stage_fastener() {
 module render() {
   echo(arm_height=arm_height);
   union() {
-    translate([0, -ext_len, 0]) 
+    translate([0, -ext_len, 0])
     lens_holder_extension();
-    translate([-outer_radius, 0, -arm_height/2 + lens_height/2]) 
+    translate([-outer_radius, 0, -arm_height/2 + lens_height/2])
     stage_fastener();
   }
 }
