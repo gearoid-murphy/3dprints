@@ -2,7 +2,7 @@ fn = 128;
 
 margin = 10;
 thickness = 1.2;
-shim = 0.1;
+shim = 0.175;
 lens_radius = 11.0 / 2.0;
 lens_height = 10;
 rim_width = 1;
@@ -10,7 +10,8 @@ outer_radius = lens_radius + thickness;
 inner_radius = lens_radius + shim;
 arm_x = outer_radius*2;
 arm_y = 5;
-ext_len = outer_radius*4;
+ext_len = 24 - arm_y;
+echo(ext_len=ext_len);
 m6_attach_diam = 50;
 m6_attach_radius = m6_attach_diam/2;
 arm_height = m6_attach_diam + 10;
@@ -49,12 +50,16 @@ module stage_fastener() {
   sub_cyl_len = arm_y*2;
   difference() {
     cube(size = [arm_x, arm_y, arm_height]);
-    translate([arm_x/2, sub_cyl_len/2 + arm_y/2, arm_height/2 + m6_attach_diam/2])
+    translate([arm_x/2,
+               sub_cyl_len/2 + arm_y/2,
+               arm_height/2 + m6_attach_diam/2])
     rotate(a = 90, v = [1, 0, 0])
     cylinder(sub_cyl_len,
              m6_radius + shim,
              m6_radius + shim, $fn=fn);
-    translate([arm_x/2, sub_cyl_len/2 + arm_y/2, arm_height/2 - m6_attach_diam/2])
+    translate([arm_x/2,
+               sub_cyl_len/2 + arm_y/2,
+               arm_height/2 - m6_attach_diam/2])
     rotate(a = 90, v = [1, 0, 0])
     cylinder(sub_cyl_len,
              m6_radius + shim,
