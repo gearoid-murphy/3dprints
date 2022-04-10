@@ -7,7 +7,7 @@ rail_thickness = 25;
 flange_thickness = 2.5;
 width = 8;
 base_length = inner_width + rail_thickness*2;
-m6_radius = 6.1 / 2;
+m6_radius = 6.2 / 2;
 total_height = 25.5;
 m6_depth = 10;
 nut_width = 10.4;
@@ -28,7 +28,7 @@ module attach_point() {
     translate([
       rail_thickness/2-nut_width/2,
       0,
-      attach_point_height-m6_depth
+      attach_point_height-m6_depth/2
     ])
     cube(size = [nut_width, width, nut_height]);
   }
