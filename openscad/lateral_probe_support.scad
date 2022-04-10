@@ -1,16 +1,16 @@
 use <common/prism.scad>
 
-fn = 8;
+fn = 128;
 inner_width = 100;
 rail_edge_width = 9;
 rail_thickness = 25;
 flange_thickness = 2.5;
 width = 8;
 base_length = inner_width + rail_thickness*2;
-m6_radius = 6.1 / 2;
-m5_radius = 5.1 / 2;
-m3_radius = 3.1 / 2;
-m1_radius = 1.1 / 2;
+m6_radius = 6.3 / 2;
+m5_radius = 5.3 / 2;
+m3_radius = 3.3 / 2;
+m1_radius = 2 / 2;
 probe_length = 63;
 m3_aperture_offset = 27;
 m1_v_offset = 5;
