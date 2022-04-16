@@ -1,12 +1,12 @@
-fn = 128;
+fn = 16;
 bowl_radius = 80 / 2;
 base_radius = 60 / 2;
 m4_radius = 4.2 / 2;
 m4_mount_radius = 50 / 2;
 support_radius = 30 / 2;
 support_height = 25;
-heatsink_height = 10;
 heatsink_square_size= 40.1;
+heatsink_height = 10;
 sample_height = 10;
 bowl_depth = heatsink_height + sample_height;
 thickness = 1.5;

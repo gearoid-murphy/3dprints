@@ -1,10 +1,7 @@
-use <common/prism.scad>
-
-fn = 128;
+fn = 16;
 inner_width = 100;
 rail_edge_width = 9;
 rail_thickness = 25;
-flange_thickness = 2.5;
 width = 8;
 base_length = inner_width + rail_thickness*2;
 m6_radius = 6.3 / 2;
@@ -17,8 +14,9 @@ m1_v_offset = 5;
 m1_i_offset = 10;
 pcb_depth = 1.56;
 pogo_pin_length = 19 - 4;
+flange_thickness = 2.5;
 probe_mount_height = (pogo_pin_length - pcb_depth - flange_thickness) ;
-total_height = probe_mount_height + flange_thickness;
+total_probe_height = probe_mount_height + flange_thickness;
 
 module probe_mount() {
   translate([base_length/2 - probe_length/2, 0, flange_thickness])
@@ -39,36 +37,42 @@ module support_base() {
   }
 }
 
-module subtracted_cylinders() {
+module probe_cylinders(x_offset, y_offset, z_offset) {
   union() {
-    translate([base_length/2, width/2, 0])
-    cylinder(h = total_height,
+    translate([x_offset, y_offset, z_offset])
+    cylinder(h = total_probe_height,
             r1 = m5_radius,
             r2 = m5_radius, $fn=fn);
+    translate([x_offset+m1_v_offset, y_offset, z_offset])
+    cylinder(h = total_probe_height,
+            r1 = m1_radius,
+            r2 = m1_radius, $fn=fn);
+    translate([x_offset-m1_v_offset, y_offset, z_offset])
+    cylinder(h = total_probe_height,
+            r1 = m1_radius,
+            r2 = m1_radius, $fn=fn);
+    translate([x_offset+m1_i_offset, y_offset, z_offset])
+    cylinder(h = total_probe_height,
+            r1 = m1_radius,
+            r2 = m1_radius, $fn=fn);
+    translate([x_offset-m1_i_offset, y_offset, z_offset])
+    cylinder(h = total_probe_height,
+            r1 = m1_radius,
+            r2 = m1_radius, $fn=fn);
+  }
+}
+
+module subtracted_cylinders() {
+  union() {
+    probe_cylinders(base_length/2, width/2, 0);
     translate([base_length/2+m3_aperture_offset, width/2, 0])
-    cylinder(h = total_height,
+    cylinder(h = total_probe_height,
             r1 = m3_radius,
             r2 = m3_radius, $fn=fn);
     translate([base_length/2-m3_aperture_offset, width/2, 0])
-    cylinder(h = total_height,
+    cylinder(h = total_probe_height,
             r1 = m3_radius,
             r2 = m3_radius, $fn=fn);
-    translate([base_length/2+m1_v_offset, width/2, 0])
-    cylinder(h = total_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
-    translate([base_length/2-m1_v_offset, width/2, 0])
-    cylinder(h = total_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
-    translate([base_length/2+m1_i_offset, width/2, 0])
-    cylinder(h = total_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
-    translate([base_length/2-m1_i_offset, width/2, 0])
-    cylinder(h = total_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
   }
 }
 
@@ -83,5 +87,4 @@ module render() {
 }
 
 echo(version=version());
-
 render();
