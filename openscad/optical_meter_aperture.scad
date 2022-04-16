@@ -1,7 +1,8 @@
 fn = 128;
-radius = 21.45;
-thickness = 0.5;
-aperture_radius = 2;
+shim = 0.3;
+radius = (21.45 - shim) / 2;
+thickness = 1.0;
+aperture_radius = 1.5;
 
 module render()
 {
