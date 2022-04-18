@@ -1,11 +1,11 @@
 fn = 128;
 bowl_radius = 110 / 2;
 base_radius = 60 / 2;
-m4_radius = 4.2 / 2;
+m4_radius = 4.75 / 2;
 m4_mount_radius = 50 / 2;
 support_radius = 40 / 2;
-support_height = 25;
-sample_square_size= 40.1;
+support_height = 15;
+sample_square_size= 40.5;
 sample_height = 10;
 diffusion_gap = 3;
 internal_thickness = 2;
@@ -59,6 +59,15 @@ module bowl() {
       cylinder(h = bowl_depth,
                r1 = bowl_radius,
                r2 = bowl_radius, $fn=fn);
+    }
+    translate([0, 0, bowl_depth + external_thickness])
+    difference() {
+      cylinder(h = internal_thickness,
+               r1 = bowl_radius + external_thickness,
+               r2 = bowl_radius + external_thickness, $fn=fn);
+      cylinder(h = internal_thickness,
+               r1 = bowl_radius + external_thickness/2,
+               r2 = bowl_radius + external_thickness/2, $fn=fn);
     }
     translate([
       -(internal_thickness + sample_square_size/2),
