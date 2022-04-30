@@ -4,19 +4,28 @@ base_radius = 60 / 2;
 m4_radius = 4.75 / 2;
 m4_mount_radius = 50 / 2;
 support_radius = 40 / 2;
-support_height = 15;
-sample_square_size= 40.5;
+support_height = 20;
+sample_square_size= 43;
 sample_height = 10;
-diffusion_gap = 3;
+diffusion_gap = 6;
 internal_thickness = 2;
 external_thickness = 10;
 rim_gap = 15;
-well_radius = 22.5 / 2;
-well_depth = 20;
+well_depth = 5;
 step_height = 3;
 step_dim = 10;
+bath_gap = 7.5;
+well_radius = (sample_square_size - step_dim) / 2;
 rim_height = sample_height + step_height;
 bowl_depth = sample_height + diffusion_gap + step_height;
+inner_cyro_height = bowl_depth;
+inner_cyro_radius = ((sqrt(sample_square_size*sample_square_size*2) / 2) +
+                     internal_thickness + bath_gap);
+inner_cyro_slope_height = 7.5;
+
+
+echo(inner_cyro_radius=inner_cyro_radius);
+
 
 module sample_rim() {
   union() { 
@@ -59,6 +68,21 @@ module bowl() {
       cylinder(h = bowl_depth,
                r1 = bowl_radius,
                r2 = bowl_radius, $fn=fn);
+    }
+    translate([0, 0, external_thickness])
+    difference() {
+      
+      cylinder(h = inner_cyro_height,
+               r1 = bowl_radius,
+               r2 = bowl_radius, $fn=fn);
+      cylinder(h = inner_cyro_height,
+               r1 = inner_cyro_radius,
+               r2 = inner_cyro_radius, $fn=fn);
+      translate([0, 0, inner_cyro_height-inner_cyro_slope_height])
+      cylinder(h = inner_cyro_slope_height,
+               r1 = inner_cyro_radius,
+               r2 = bowl_radius+10, $fn=fn);
+
     }
     translate([0, 0, bowl_depth + external_thickness])
     difference() {

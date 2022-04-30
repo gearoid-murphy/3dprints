@@ -9,15 +9,21 @@ lid_y_offset = lid_half_hyp/2 - lid_y_offset_shim;
 // lid_z_offset = bowl_depth + thickness;
 lid_z_offset = 0;
 lid_radius = (bowl_radius +
-             (external_thickness / 2) - internal_thickness);
+             (external_thickness / 2) - internal_thickness/2);
 echo(lid_radius=lid_radius);
 lid_thickness = 7.5;
 
 spout_radius = 20 / 2 ;
-spout_height = 15;
+spout_height = 7.5;
 spout_shim = 1;
 spout_y_offset = (sample_square_size * .75 ) + spout_radius + spout_shim;
 spout_thickness = 1.0;
+
+
+echo(internal_thickness=internal_thickness);
+echo(external_thickness=external_thickness);
+echo(lid_radius=lid_radius);
+echo(lid_diameter=lid_radius*2);
 
 module render() {
   if(false) {

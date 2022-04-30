@@ -1,5 +1,5 @@
-fn = 16;
-inner_width = 100;
+fn = 128;
+inner_width = 160;
 rail_edge_width = 9;
 rail_thickness = 25;
 width = 8;
@@ -7,21 +7,21 @@ base_length = inner_width + rail_thickness*2;
 m6_radius = 6.3 / 2;
 m5_radius = 5.3 / 2;
 m3_radius = 3.3 / 2;
-m1_radius = 2 / 2;
+m1_radius = 1.5 / 2;
 probe_length = 63;
 m3_aperture_offset = 27;
 m1_v_offset = 5;
 m1_i_offset = 10;
 pcb_depth = 1.56;
 pogo_pin_length = 19 - 4;
-flange_thickness = 2.5;
-probe_mount_height = (pogo_pin_length - pcb_depth - flange_thickness) ;
-total_probe_height = probe_mount_height + flange_thickness;
+flange_thickness = 5;
+total_probe_height = flange_thickness;
 
-module probe_mount() {
-  translate([base_length/2 - probe_length/2, 0, flange_thickness])
-  cube(size = [probe_length, width, probe_mount_height]);
-}
+// pogo pin residual height = ~6mm
+// 1mm clearance
+// 5mm
+// pcb height = 1.3
+echo(total_probe_height=total_probe_height);
 
 module support_base() {
   difference() {
@@ -78,11 +78,8 @@ module subtracted_cylinders() {
 
 module render() {
   difference() {
-    union() {
-      support_base();
-      probe_mount();
-    }
-  subtracted_cylinders();
+    support_base();
+    subtracted_cylinders();
   }
 }
 
