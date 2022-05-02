@@ -51,8 +51,7 @@ module render() {
       cylinder(h = spout_height + lid_thickness + spout_thickness,
                r1 = spout_radius,
                r2 = spout_radius, $fn=fn);
-      probe_cylinders(0, lid_y_offset, 
-                      lid_z_offset);
+      probe_cylinders(0, lid_y_offset,  lid_z_offset, lid_thickness);
       cylinder(h = spout_height + lid_thickness + spout_thickness,
                r1 = m1_radius,
                r2 = m1_radius, $fn=fn);

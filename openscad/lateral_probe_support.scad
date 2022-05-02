@@ -10,8 +10,8 @@ m3_radius = 3.3 / 2;
 m1_radius = 1.5 / 2;
 probe_length = 63;
 m3_aperture_offset = 27;
-m1_v_offset = 5;
-m1_i_offset = 10;
+m1_v_offset = 4;
+m1_i_offset = 6.5;
 pcb_depth = 1.56;
 pogo_pin_length = 19 - 4;
 flange_thickness = 5;
@@ -37,26 +37,27 @@ module support_base() {
   }
 }
 
-module probe_cylinders(x_offset, y_offset, z_offset) {
+module probe_cylinders(x_offset, y_offset, z_offset,
+                       cylinder_height) {
   union() {
     translate([x_offset, y_offset, z_offset])
-    cylinder(h = total_probe_height,
+    cylinder(h = cylinder_height,
             r1 = m5_radius,
             r2 = m5_radius, $fn=fn);
     translate([x_offset+m1_v_offset, y_offset, z_offset])
-    cylinder(h = total_probe_height,
+    cylinder(h = cylinder_height,
             r1 = m1_radius,
             r2 = m1_radius, $fn=fn);
     translate([x_offset-m1_v_offset, y_offset, z_offset])
-    cylinder(h = total_probe_height,
+    cylinder(h = cylinder_height,
             r1 = m1_radius,
             r2 = m1_radius, $fn=fn);
     translate([x_offset+m1_i_offset, y_offset, z_offset])
-    cylinder(h = total_probe_height,
+    cylinder(h = cylinder_height,
             r1 = m1_radius,
             r2 = m1_radius, $fn=fn);
     translate([x_offset-m1_i_offset, y_offset, z_offset])
-    cylinder(h = total_probe_height,
+    cylinder(h = cylinder_height,
             r1 = m1_radius,
             r2 = m1_radius, $fn=fn);
   }
@@ -64,7 +65,8 @@ module probe_cylinders(x_offset, y_offset, z_offset) {
 
 module subtracted_cylinders() {
   union() {
-    probe_cylinders(base_length/2, width/2, 0);
+    probe_cylinders(base_length/2, width/2, 0,
+                    total_probe_height);
     translate([base_length/2+m3_aperture_offset, width/2, 0])
     cylinder(h = total_probe_height,
             r1 = m3_radius,
