@@ -1,17 +1,17 @@
-fn = 128;
+fn = 8;
 inner_width = 160;
 rail_edge_width = 9;
 rail_thickness = 25;
 width = 8;
 base_length = inner_width + rail_thickness*2;
 m6_radius = 6.3 / 2;
-m5_radius = 5.3 / 2;
+m5_radius = 7 / 2;
 m3_radius = 3.3 / 2;
-m1_radius = 1.5 / 2;
+pogo_pin_radius = 5 / 2;
 probe_length = 63;
-m3_aperture_offset = 27;
+m3_aperture_offset = 25;
 m1_v_offset = 4;
-m1_i_offset = 6.5;
+m1_i_offset = 9;
 pcb_depth = 1.56;
 pogo_pin_length = 19 - 4;
 flange_thickness = 5;
@@ -46,20 +46,20 @@ module probe_cylinders(x_offset, y_offset, z_offset,
             r2 = m5_radius, $fn=fn);
     translate([x_offset+m1_v_offset, y_offset, z_offset])
     cylinder(h = cylinder_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
+            r1 = pogo_pin_radius,
+            r2 = pogo_pin_radius, $fn=fn);
     translate([x_offset-m1_v_offset, y_offset, z_offset])
     cylinder(h = cylinder_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
+            r1 = pogo_pin_radius,
+            r2 = pogo_pin_radius, $fn=fn);
     translate([x_offset+m1_i_offset, y_offset, z_offset])
     cylinder(h = cylinder_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
+            r1 = pogo_pin_radius,
+            r2 = pogo_pin_radius, $fn=fn);
     translate([x_offset-m1_i_offset, y_offset, z_offset])
     cylinder(h = cylinder_height,
-            r1 = m1_radius,
-            r2 = m1_radius, $fn=fn);
+            r1 = pogo_pin_radius,
+            r2 = pogo_pin_radius, $fn=fn);
   }
 }
 
