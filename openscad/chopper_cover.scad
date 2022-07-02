@@ -19,8 +19,8 @@ v_mount_height = 45;
 mount_space_y_offset = (v_mount_y_offset -
                         bridge_length +
                         thickness);
-aperture_size = 22.5;
-aperture_offset = 38;
+aperture_size = 15;
+aperture_offset = 42;
 
 rebar_len = 4.5;
 

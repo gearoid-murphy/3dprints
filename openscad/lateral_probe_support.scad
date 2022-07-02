@@ -38,12 +38,14 @@ module support_base() {
 }
 
 module probe_cylinders(x_offset, y_offset, z_offset,
-                       cylinder_height) {
+                       cylinder_height, render_cylinder=1) {
   union() {
-    translate([x_offset, y_offset, z_offset])
-    cylinder(h = cylinder_height,
-            r1 = m5_radius,
-            r2 = m5_radius, $fn=fn);
+    if (render_cylinder == 1) {
+      translate([x_offset, y_offset, z_offset])
+      cylinder(h = cylinder_height,
+              r1 = m5_radius,
+              r2 = m5_radius, $fn=fn);
+    }
     translate([x_offset+m1_v_offset, y_offset, z_offset])
     cylinder(h = cylinder_height,
             r1 = pogo_pin_radius,
