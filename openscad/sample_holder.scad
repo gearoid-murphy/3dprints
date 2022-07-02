@@ -28,7 +28,7 @@ echo(inner_cyro_radius=inner_cyro_radius);
 
 
 module sample_rim() {
-  union() { 
+  union() {
     difference() {
       cube(size = [sample_square_size + internal_thickness*2,
                    sample_square_size + internal_thickness*2,
