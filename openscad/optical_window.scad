@@ -6,10 +6,10 @@ lens_flange = 3.0;
 optical_channel_radius = lens_radius - lens_flange;
 housing_radius = lens_radius + epoxy_width;
 housing_side_dim = lens_diameter + 5;
-housing_height = 5;
+housing_height = 12.5;
 lens_fitting_rim = 3;
-flange_dim = 5;
-thickness = 0.5;
+flange_dim = 15;
+thickness = 1;
 
 module housing_body() {
   difference() {
