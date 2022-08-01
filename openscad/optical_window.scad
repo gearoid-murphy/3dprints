@@ -5,8 +5,11 @@ lens_radius = lens_diameter / 2.0;
 lens_flange = 3.0;
 optical_channel_radius = lens_radius - lens_flange;
 housing_radius = lens_radius + epoxy_width;
-housing_side_dim = lens_diameter + 5;
-housing_height = 12.5;
+housing_side_dim = 66;
+housing_height = 12;
+probe_gap = 6;
+seal_thickness = 1.5;
+probe_diff_dim = housing_side_dim - seal_thickness*2;
 lens_fitting_rim = 3;
 flange_dim = 15;
 thickness = 1;
@@ -18,6 +21,8 @@ module housing_body() {
     cylinder(h = housing_height,
              r1 = optical_channel_radius,
              r2 = optical_channel_radius, $fn=fn);
+    translate([seal_thickness, seal_thickness, 0])
+    cube(size = [probe_diff_dim, probe_diff_dim, probe_gap]);
   }
 }
 
